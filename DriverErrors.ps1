@@ -37,3 +37,4 @@ foreach ($Driver in $Drivers)
         Write-Host "Driver is up to date for $($Driver.DeviceName)." -ForegroundColor Green
     }
 }
+powershell -NoLogo -noexit
