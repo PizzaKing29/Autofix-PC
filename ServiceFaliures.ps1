@@ -68,3 +68,4 @@ foreach ($Service in $Services)
 
     Write-Host ""
 }
+powershell -NoLogo -noexit

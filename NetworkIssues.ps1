@@ -41,3 +41,4 @@ foreach ($NetworkService in $NetworkServices)
     }
 }
 Write-Host "You Have found $($NetworkErrorsFound) Errors!"
+powershell -NoLogo -noexit
