@@ -2,7 +2,6 @@
 # ipconfig /all > $null 2>&1
 $ErrorActionPreference = "Stop"
 Clear-Host
-Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 Write-Host "[INFO] Performing DNS Lookup for google.com..." -ForegroundColor Cyan
 
 try
