@@ -15,7 +15,7 @@ do
         }
         default
         {
-            Write-Host "Input answer is invalid, please try again..."
+            Write-Host "Input answer is invalid, please try again..." -ForegroundColor Red
         }
     }
 }
@@ -31,7 +31,8 @@ $ServicesCompleted = 0
 foreach ($Service in $Services)
 {
     $ServicesCompleted++
-    Write-Host "Checking for Errors for Service: $($Service.DisplayName) ($($Service.ServiceName)) - Completed: $ServicesCompleted/$TotalServices"
+    Write-Host "Checking for Errors for Service: $($Service.DisplayName) ($($Service.ServiceName)) - " -NoNewline
+    Write-Host "Completed: $ServicesCompleted/$TotalServices" -ForegroundColor Green
     $SystemErrors = Get-EventLog -LogName System -Source $Service.ServiceName -EntryType Error -Newest 5 -ErrorAction SilentlyContinue
 
     if ($SystemErrors)
@@ -39,14 +40,14 @@ foreach ($Service in $Services)
         Write-Host " Found Errors in System Log:"
         foreach ($Error in $SystemErrors)
         {
-            Write-Host "    Time Generated: $($Error.TimeGenerated)"
-            Write-Host "    Message: $($Error.Message)"
+            Write-Host "    Time Generated: $($Error.TimeGenerated)" -ForegroundColor Cyan
+            Write-Host "    Message: $($Error.Message)" -ForegroundColor Red
             Write-Host "    -------------------------"
         }
     }
     else
     {
-        Write-Host "  No recent errors found in System Log"
+        Write-Host "  No recent errors found in System Log" -ForegroundColor Green
     }
 
     $ApplicationErrors = Get-EventLog -LogName Application -Source $Service.ServiceName -EntryType Error -Newest 5 -ErrorAction SilentlyContinue
@@ -56,14 +57,14 @@ foreach ($Service in $Services)
         Write-Host " Found Errors in Application Log:"
         foreach($Error in $ApplicationErrors)
         {
-            Write-Host "    Time Generated: $($Error.TimeGenerated)"
-            Write-Host "    Message: $($Error.Message)"
+            Write-Host "    Time Generated: $($Error.TimeGenerated)" -ForegroundColor Cyan
+            Write-Host "    Message: $($Error.Message)" -ForegroundColor Red
             Write-Host "    -------------------------"
         }
     }
     else
     {
-        Write-Host " No recent errors found in Application Log"
+        Write-Host " No recent errors found in Application Log" -ForegroundColor Green
     }
 
     Write-Host ""
