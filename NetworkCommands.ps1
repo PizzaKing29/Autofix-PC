@@ -2,6 +2,39 @@
 # ipconfig /all > $null 2>&1
 $ErrorActionPreference = "Stop"
 Clear-Host
+
+function TestDNSAndInternet ()
+{
+    try 
+    {
+        $PingResult1 = Test-Connection -ComputerName 8.8.8.8 -Count 1 -Quiet
+        if ($PingResult1)
+        {
+            Write-Host "Successfully pinged 8.8.8.8 (Google DNS)." -ForegroundColor Green
+        }
+        else
+        {
+            Write-Host "Failed to ping 8.8.8.8 (Google DNS)." -ForegroundColor Red
+        }
+
+        $PingResult2 = Test-Connection -ComputerName google.com -Count 1 -Quiet
+        if ($PingResult2) 
+        {
+            Write-Host "Successfully pinged google.com." -ForegroundColor Green
+        } 
+        else 
+        {
+            Write-Host "Failed to ping google.com." -ForegroundColor Red
+        }
+    }
+    catch 
+    {
+        Write-Host "An error occurred during the test." -ForegroundColor Red
+        Write-Host $_.Exception.Message -ForegroundColor Red
+    }
+}
+TestDNSAndInternet
+
 Write-Host "[INFO] Performing DNS Lookup for google.com..." -ForegroundColor Cyan
 
 try
@@ -10,9 +43,9 @@ try
 }
 catch
 {
-    Write-Host "[ERROR] Couldnt run the command" -NoNewLine -ForegroundColor Red
-    Write-Host "nslookup" -NoNewLine
-    Write-Host "google.com" -NoNewLine -Foregroundcolor Yellow
+    Write-Host "[ERROR] Couldnt run the command " -NoNewLine -ForegroundColor Red
+    Write-Host "nslookup " -NoNewLine
+    Write-Host "google.com" -Foregroundcolor Yellow
     Write-Host "Error Message: $_" -ForegroundColor Red
 }
 
@@ -60,4 +93,5 @@ else
     Clear-Host
     Write-Host "[SUCCESS] DNS Lookup Successful..." -ForegroundColor Green
 }
+
 powershell -NoLogo -noexit
