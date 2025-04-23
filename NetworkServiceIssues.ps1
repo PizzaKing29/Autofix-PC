@@ -1,7 +1,4 @@
 Clear-Host
-# Write-Host "Checking IP Config..."
-# ipconfig /all > $null 2>&1
-
 
 $NetworkServices = Get-EventLog -LogName System | Where-Object {
     $_.Source -in @(
