@@ -7,6 +7,23 @@ function TestDNSAndInternet ()
 {
     try 
     {
+
+        $ActiveAdapter = Get-NetAdapter | Where-Object { $_.Status -eq "Up" } | Select-Object -First 1
+        if ($ActiveAdapter)
+        {
+            Write-Host "Active network adapter found: $($ActiveAdapter.Name)" -ForegroundColor Green
+            $AdapterIP = Get-NetIPAddress -InterfaceAlias $ActiveAdapter.Name | Where-Object { $_.AddressFamily -eq "IPv4" }
+
+            if ($AdapterIP)
+            {
+                Write-Host "IP address found: $($AdapterIP.IPAddress)" -ForegroundColor Green
+            }
+            else
+            {
+                Write-Host "No IPv4 address assigned to the active adapter." -ForegroundColor Red
+            }
+        }
+
         $PingResult1 = Test-Connection -ComputerName 8.8.8.8 -Count 1 -Quiet
         if ($PingResult1)
         {
