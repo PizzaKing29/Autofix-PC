@@ -1,5 +1,5 @@
-# Write-Host "Checking IP Config..."
-# ipconfig /all > $null 2>&1
+Write-Host "Checking IP Config..."
+ipconfig /all > $null 2>&1
 $ErrorActionPreference = "Stop"
 Clear-Host
 
