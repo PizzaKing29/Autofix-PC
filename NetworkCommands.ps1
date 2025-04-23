@@ -1,5 +1,6 @@
 # Write-Host "Checking IP Config..."
 # ipconfig /all > $null 2>&1
+$ErrorActionPreference = "Stop"
 Clear-Host
 Write-Host "[INFO] Performing DNS Lookup for google.com..." -ForegroundColor Cyan
 
