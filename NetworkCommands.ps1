@@ -2,6 +2,7 @@
 # ipconfig /all > $null 2>&1
 $ErrorActionPreference = "Stop"
 Clear-Host
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 Write-Host "[INFO] Performing DNS Lookup for google.com..." -ForegroundColor Cyan
 
 try
@@ -13,6 +14,7 @@ catch
     Write-Host "[ERROR] Couldnt run the command" -NoNewLine -ForegroundColor Red
     Write-Host "nslookup" -NoNewLine
     Write-Host "google.com" -NoNewLine -Foregroundcolor Yellow
+    Write-Host "Error Message: $_" -ForegroundColor Red
 }
 
 if ($NslookupResult -match "timed out" -or $nslookupResult -match "can't find")
