@@ -4,7 +4,16 @@ $ErrorActionPreference = "Stop"
 Clear-Host
 Write-Host "[INFO] Performing DNS Lookup for google.com..." -ForegroundColor Cyan
 
-$NslookupResult = nslookup google.com 2>&1
+try
+{
+    $NslookupResult = nslookup google.com 2>&1
+}
+catch
+{
+    Write-Host "[ERROR] Couldnt run the command" -NoNewLine -ForegroundColor Red
+    Write-Host "nslookup" -NoNewLine
+    Write-Host "google.com" -NoNewLine -Foregroundcolor Yellow
+}
 
 if ($NslookupResult -match "timed out" -or $nslookupResult -match "can't find")
 {
