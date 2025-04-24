@@ -20,5 +20,8 @@ foreach($Drive in $Drives)
     catch
     {
         Write-Host "[ERROR] There Was an error attemping to check drive health..." -ForegroundColor Red
+        Write-Error $_.Exception.ToString()
+        Read-Host -Prompt "The above error occurred. Press Enter to exit."
     }
 }
+# powershell -NoLogo -noexit
