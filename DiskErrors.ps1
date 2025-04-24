@@ -22,4 +22,3 @@ foreach($Drive in $Drives)
         Write-Host "[ERROR] There Was an error attemping to check drive health..." -ForegroundColor Red
     }
 }
-powershell -NoLogo -noexit
