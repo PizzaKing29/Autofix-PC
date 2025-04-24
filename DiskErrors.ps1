@@ -5,7 +5,8 @@ foreach($Drive in $Drives)
 {
     try
     {
-        $Status = if ($Drive.PredictFaliure)
+        Write-Host "--------- CHECKING DRIVE HEALTH ---------" -ForegroundColor Yellow
+        $Status = if ($Drive.PredictFailure)
         {
             "⚠️ Failing"
         }
@@ -14,7 +15,7 @@ foreach($Drive in $Drives)
             "✅ Healthy"
         }
         Write-Host "Drive: $($Drive.InstanceName)" -ForegroundColor Cyan
-        Write-Host "Status: $Status" -ForegroundColor (if ($Drive.PredictFaliure){ "Red" } else { "Green" })
+        Write-Host "Status: $Status" -ForegroundColor (if ($Drive.PredictFailure){ "Red" } else { "Green" })
     }
     catch
     {
