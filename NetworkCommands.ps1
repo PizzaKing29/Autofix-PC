@@ -5,7 +5,7 @@ Clear-Host
 
 function TestDNSAndInternet ()
 {
-    try 
+    try
     {
 
         $ActiveAdapter = Get-NetAdapter | Where-Object { $_.Status -eq "Up" } | Select-Object -First 1

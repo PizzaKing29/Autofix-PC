@@ -7,7 +7,7 @@ foreach($Drive in $Drives)
     {
         Write-Host "--------- CHECKING DRIVE HEALTH ---------" -ForegroundColor Yellow
 
-        $Status = "✅ Healthy"
+        $Status = "Healthy"
         $Color = "Green"
 
         if ($Drive.PredictFailure)
@@ -16,13 +16,13 @@ foreach($Drive in $Drives)
             $Color = "Red"
         }
 
-        if (-not $Drive.PredictFailure -and $Drive.HealthStatus)
+        if ($Drive.HealthStatus -ne "Healthy")
         {
             $Status = "Health: $($Drive.HealthStatus)"
             $Color = if ($Drive.HealthStatus -ne "Healthy") { "red" } else { "Green" }
         }
 
-        Write-Host "Drive: $($Drive.InstanceName)" -ForegroundColor Cyan
+        Write-Host "Drive: $($Drive.FriendlyName)" -ForegroundColor Cyan
         Write-Host "Status: $Status" -ForegroundColor $Color
         Write-Host "Operational Status: $($Drive.OperationalStatus)" -ForegroundColor Gray
         Write-Host ""
