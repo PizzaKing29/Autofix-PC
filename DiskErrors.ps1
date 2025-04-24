@@ -3,15 +3,22 @@ Clear-Host
 
 foreach($Drive in $Drives)
 {
-    $Status = if ($Drive.PredictFaliure)
+    try
     {
-        "⚠️ Failing"
+        $Status = if ($Drive.PredictFaliure)
+        {
+            "⚠️ Failing"
+        }
+        else
+        {
+            "✅ Healthy"
+        }
+        Write-Host "Drive: $($Drive.InstanceName)" -ForegroundColor Cyan
+        Write-Host "Status: $Status" -ForegroundColor (if ($Drive.PredictFaliure){ "Red" } else { "Green" })
     }
-    else
+    catch
     {
-        "✅ Healthy"
+        Write-Host "[ERROR] There Was an error attemping to check drive health..." -ForegroundColor Red
     }
-    Write-Host "Drive: $($Drive.InstanceName)" -ForegroundColor Cyan
-    Write-Host "Status: $Status" -ForegroundColor (if ($Drive.PredictFaliure){ "Red" } else { "Green" })
 }
 powershell -NoLogo -noexit
