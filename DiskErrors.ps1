@@ -1,26 +1,36 @@
-$Drives = Get-WmiObject -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus
+Clear-Host
+$Drives = Get-PhysicalDisk
 
 foreach($Drive in $Drives)
 {
     try
     {
         Write-Host "--------- CHECKING DRIVE HEALTH ---------" -ForegroundColor Yellow
-        $Status = if ($Drive.PredictFailure)
+
+        $Status = "✅ Healthy"
+        $Color = "Green"
+
+        if ($Drive.PredictFailure)
         {
-            "⚠️ Failing"
+            $Status = "⚠️ Failing"
+            $Color = "Red"
         }
-        else
+
+        if (-not $Drive.PredictFailure -and $Drive.HealthStatus)
         {
-            "✅ Healthy"
+            $Status = "Health: $($Drive.HealthStatus)"
+            $Color = if ($Drive.HealthStatus -ne "Healthy") { "red" } else { "Green" }
         }
+
         Write-Host "Drive: $($Drive.InstanceName)" -ForegroundColor Cyan
-        Write-Host "Status: $Status" -ForegroundColor (if ($Drive.PredictFailure){ "Red" } else { "Green" })
+        Write-Host "Status: $Status" -ForegroundColor $Color
+        Write-Host "Operational Status: $($Drive.OperationalStatus)" -ForegroundColor Gray
+        Write-Host ""
     }
     catch
     {
         Write-Host "[ERROR] There Was an error attemping to check drive health..." -ForegroundColor Red
         Write-Error $_.Exception.ToString()
-        Read-Host -Prompt "The above error occurred. Press Enter to exit."
     }
 }
-# powershell -NoLogo -noexit
+powershell -NoLogo -noexit
