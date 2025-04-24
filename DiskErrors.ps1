@@ -1,5 +1,4 @@
 $Drives = Get-WmiObject -Namespace root\wmi -Class MSStorageDriver_FailurePredictStatus
-Clear-Host
 
 foreach($Drive in $Drives)
 {
