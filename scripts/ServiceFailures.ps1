@@ -38,10 +38,10 @@ foreach ($Service in $Services)
     if ($SystemErrors)
     {
         Write-Host " Found Errors in System Log:"
-        foreach ($Error in $SystemErrors)  # EROR in Windows Event log
+        foreach ($SystemError in $SystemErrors)  # EROR in Windows Event log
         {
-            Write-Host "    Time Generated: $($Error.TimeGenerated)" -ForegroundColor Cyan
-            Write-Host "    Message: $($Error.Message)" -ForegroundColor Red
+            Write-Host "    Time Generated: $($SystemError.TimeGenerated)" -ForegroundColor Cyan
+            Write-Host "    Message: $($SystemError.Message)" -ForegroundColor Red
             Write-Host "    -------------------------"
         }
     }
@@ -55,10 +55,10 @@ foreach ($Service in $Services)
     if ($ApplicationErrors)
     {
         Write-Host " Found Errors in Application Log:"
-        foreach($Error in $ApplicationErrors) # ERROPR Volume Shadow Copy (Cannot overrite variable errore beacuase it is read only or constant)
+        foreach($ApplicationError in $ApplicationErrors) # ERROPR Volume Shadow Copy (Cannot overrite variable errore beacuase it is read only or constant)
         {
-            Write-Host "    Time Generated: $($Error.TimeGenerated)" -ForegroundColor Cyan
-            Write-Host "    Message: $($Error.Message)" -ForegroundColor Red
+            Write-Host "    Time Generated: $($ApplicationError.TimeGenerated)" -ForegroundColor Cyan
+            Write-Host "    Message: $($ApplicationError.Message)" -ForegroundColor Red
             Write-Host "    -------------------------"
         }
     }

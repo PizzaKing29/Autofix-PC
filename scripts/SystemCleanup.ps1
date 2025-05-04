@@ -1,0 +1,1 @@
+# Makes sure pc is running optimally, deleting temp folder too
